@@ -71,7 +71,7 @@ endfunction
 
 " display the list of installed environment names on pyenv
 function! pyenv#display_pyenv_names()
-  for name in pyenv#versions("")
+  for name in pyenv#pyenv_names("")
     echo name
   endfor
 endfunction
