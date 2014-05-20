@@ -161,7 +161,8 @@ function! pyenv#activate(name, verbose)
     let name = current_name
   elseif name != current_name || len(current_name) == 0
     " new pyenv name is specified, activate the new one
-    call s:pyenv(g:pyenv#pyenv_application_scope . " " . name)
+    let $PYENV_VERSION = name
+    call s:pyenv("shell " . name)
   endif
   " automatically force py version on vim-pyenv
   if g:pyenv#auto_force_py_version
@@ -179,7 +180,8 @@ endfunction
 function! pyenv#deactivate(verbose)
   if exists("g:pyenv#activated_name")
     " deactivate pyenv
-    call s:pyenv(g:pyenv#pyenv_application_scope . " --unset")
+    let $PYENV_VERSION = ""
+    call s:pyenv("shell --unset")
     " automatically force py version on vim-pyenv
     if g:pyenv#auto_force_py_version
       call pyenv#auto_force_py_version(a:verbose)
@@ -203,9 +205,7 @@ let s:settings = {
       \ 'force_py_version': 2,
       \ 'auto_force_py_version': has('python') && has('python3'),
       \ 'auto_force_py_version_jedi': 1,
-      \ 'pyenv_application_scope': "'local'",
-      \ 'pyenv_exec': "'auto'",
-      \ 'python_exec': "'python'",
+      \ 'pyenv_root': "'auto'",
       \ }
 
 function! s:init()
@@ -214,20 +214,26 @@ function! s:init()
       exe 'let g:pyenv#'.key.' = '.val
     endif
   endfor
-  " automatically detect the pyenv executable file
-  if g:pyenv#pyenv_exec == 'auto'
-    let DEFAULT_PYENV_EXEC = "~/.pyenv/bin/pyenv"
+  " automatically detect the pyenv root
+  if g:pyenv#pyenv_root == 'auto'
+    let default_pyenv_root = "~/.pyenv"
     if $PYENV_ROOT
-      let g:pyenv#pyenv_exec = $PYENV_ROOT . "/bin/pyenv"
-    elseif filereadable(expand(DEFAULT_PYENV_EXEC))
-      let g:pyenv#pyenv_exec = DEFAULT_PYENV_EXEC
+      let g:pyenv#pyenv_root = $PYENV_ROOT
+    elseif isdirectory(expand(default_pyenv_root))
+      let g:pyenv#pyenv_root = default_pyenv_root
     else
-      echoerr "vim-pyenv cannot find the pyenv executable file."
-      echoerr "Please specify the executable pyenv path by g:pyenv#pyenv_exec"
+      echoerr "vim-pyenv cannot find the pyenv root directory."
+      echoerr "Please specify the executable pyenv path by g:pyenv#pyenv_root"
       let pyenv#enable = 0
       finish
     endif
-    let g:pyenv#pyenv_exec = expand(g:pyenv#pyenv_exec)
+    let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
+  endif
+  if !exists('g:pyenv#pyenv_exec')
+    let g:pyenv#pyenv_exec = g:pyenv#pyenv_root . "/bin/pyenv"
+  endif
+  if !exists('g:pyenv#python_exec')
+    let g:pyenv#python_exec = g:pyenv#pyenv_root . "/shims/python"
   endif
 endfunction
 

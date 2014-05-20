@@ -148,9 +148,12 @@ FUNCTIONS                                           *vim-pyenv-functions*
 pyenv#pyenv_name()                      *pyenv#pyenv_name()*
     Return the current pyenv python name. The pyenv python is not require to
     be activated in the Vim session.
-    If you need to know the activated pyenv name, see |g:pyenv#activated_name|
+    If you need to know the activated pyenv name, see |pyenv#activated_name()|
     instead.
     See |pyenv#display_pyenv_name()| as well.
+
+pyenv#activated_pyenv_name()            *pyenv#activated_pyenv_name()*
+    Return the current activated pyenv python name.
 
 pyenv#pyenv_names({prefix})             *pyenv#pyenv_names()*
     Return the list of available pyenv python names. The result list are
@@ -253,25 +256,22 @@ g:pyenv#auto_force_py_version_jedi      *g:pyenv#auto_force_py_version_jedi*
 
     Default to 1.
 
-g:pyenv#pyenv_application_scope         *g:pyenv#pyenv_application_scope*
-    The value is used when vim-pyenv activate the pyenv python.
-    The original pyenv accept 'shell', 'local' and 'global' but vim-pyenv only
-    accept 'local' and 'global', due to the technical issue.
+g:pyenv#pyenv_root                      *g:pyenv#pyenv_root*
+    The path of pyenv root directory.
+    When 'auto' is specified, the absolute pyenv root path would be
+    guessed.
 
-    Default to 'local'.
+    Default to 'auto'.
 
 g:pyenv#pyenv_exec                      *g:pyenv#pyenv_exec*
     The path of pyenv executable.
-    When 'auto' is specified, the absolute pyenv executable path would be
-    guessed.
 
     Default to 'auto'.
 
 g:pyenv#python_exec                     *g:pyenv#python_exec*
     The path of python executable.
-    It should be 'python' while pyenv automatically change that meaning.
 
-    Default to 'python'.
+    Default to 'auto'.
 
 g:pyenv#squelch_py_warning              *g:pyenv#squelch_py_warning*
     Define this variable to suppress the

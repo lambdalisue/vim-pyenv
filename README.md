@@ -41,10 +41,7 @@ dependency.
 
 ```vim
 " do not load jedi-vim until *.py is opend.
-NeoBundleLazy 'davidhalter/jedi-vim', {
-        \ 'autoload': {
-        \   'filetypes': ['python', 'python3'],
-        \ }}
+NeoBundle 'davidhalter/jedi-vim'
 
 " do not load vim-pyenv until *.py is opend and
 " make sure that it is loaded after jedi-vim is loaded.
