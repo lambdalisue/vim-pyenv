@@ -112,38 +112,31 @@ function! pyenv#force_py_version(py_version, verbose)
   elseif a:py_version == 3
     command! -nargs=1 PyenvPython python3 <args>
     execute 'py3file ' . filename
-  else
-    echoerr "Unknown py_version '" . a:py_version . "' was specified"
-    return
   endif
-  if g:pyenv#force_py_version != a:py_version
-    let g:pyenv#force_py_version = a:py_version
-    if a:verbose
+  " did internal python version changed?
+  if !exists('g:pyenv#internal_py_version') || 
+        \ g:pyenv#internal_py_version != a:py_version
+    if a:verbose > 0
       echomsg "Python " . a:py_version . " is activated."
     endif
+    let g:pyenv#internal_py_version = a:py_version
   endif
 endfunction
 
-" synchronize the internal python version to the external python version
 function! pyenv#auto_force_py_version(verbose)
   if !(has('python') && has('python3'))
     echoerr "pyenv#auto_force_py_version feature require +python and +python3"
     return
   endif
 
-  let py_version = pyenv#py_version()
   let external_py_version = pyenv#external_py_version()
-  let py_version_prefix = split(py_version, '\.')[0]
-  let external_py_version_prefix = split(external_py_version, '\.')[0]
-  if py_version_prefix != external_py_version_prefix
-    " synchronize
-    call pyenv#force_py_version(external_py_version_prefix, a:verbose)
-  endif
-  if g:pyenv#auto_force_py_version_jedi
-    if exists('jedi#force_py_version')
-      call jedi#force_py_version(g:pyenv#force_py_version)
-      echomsg "jedi#force_py_version is called with ".g:pyenv#force_py_version
-    endif
+  let external_py_version = split(external_py_version, '\.')[0]
+
+  call pyenv#force_py_version(external_py_version, a:verbose)
+
+  " jedi?
+  if get(g:, 'pyenv#jedi#auto_force_py_version', 1) == 1 
+    call pyenv#jedi#force_py_version(external_py_version, a:verbose)
   endif
 endfunction
 
@@ -202,7 +195,6 @@ endfunction
 let s:settings = {
       \ 'enable': 1,
       \ 'auto_activate': 1,
-      \ 'force_py_version': 2,
       \ 'auto_force_py_version': has('python') && has('python3'),
       \ 'auto_force_py_version_jedi': 1,
       \ 'pyenv_root': "'auto'",
@@ -243,7 +235,7 @@ call s:init()
 " python initialization
 " ------------------------------------------------------------------------
 if has('python') && has('python3')
-  call pyenv#force_py_version(g:pyenv#force_py_version, 0)
+  call pyenv#auto_force_py_version(0)
 elseif has('python')
   call pyenv#force_py_version(2, 0)
 elseif has('python3')

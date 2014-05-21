@@ -164,7 +164,7 @@ pyenv#py_version()                      *pyenv#py_version()*
     Return the version number of the internal python.
     See |pyenv#display_py_version()| as well.
 
-pyenv#external_py_version()                      *pyenv#py_version()*
+pyenv#external_py_version()             *pyenv#external_py_version()*
     Return the version number of the external python.
     See |pyenv#display_external_py_version()| as well.
 
