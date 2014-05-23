@@ -47,6 +47,8 @@ def activate(python_exec=None):
     global _original_sys_path
     # get current external python's sys.path
     external_sys_path = get_external_sys_path(python_exec)
+    # convert it into string (it required in python3)
+    external_sys_path = [x.decode('utf-8') for x in external_sys_path]
     # save original sys.path
     if _original_sys_path == NONE:
         _original_sys_path = sys.path[:]
