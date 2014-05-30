@@ -80,6 +80,19 @@ endfunction
 "------------------------------------------------------------------------------
 " python (internal/external) manipulation
 "------------------------------------------------------------------------------
+" return the pyenv running mode
+function! pyenv#py_mode()
+  if has('python') && has('python3')
+    return "dual"
+  elseif has('python')
+    return "2"
+  elseif has('python3')
+    return "3"
+  else
+    return "disabled"
+  endif
+endfunction
+
 " return the version of internal python
 function! pyenv#py_version()
   PyenvPython pyenv_vim.py_version()
@@ -222,7 +235,19 @@ function! s:init()
     let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
   endif
   if !exists('g:pyenv#pyenv_exec')
-    let g:pyenv#pyenv_exec = g:pyenv#pyenv_root . "/bin/pyenv"
+    if filereadable(g:pyenv#pyenv_root."/bin/pyenv")
+      " if the pyenv is installed with git command
+      let g:pyenv#pyenv_exec = g:pyenv#pyenv_root . "/bin/pyenv"
+    elseif filereadable("/usr/local/bin/pyenv")
+      " if the pyenv is installed with homebrew
+      let g:pyenv#pyenv_exec = "/usr/local/bin/pyenv"
+    elseif executable("pyenv")
+      " other
+      let g:pyenv#pyenv_exec = "pyenv"
+    else
+      echoerr "vim-pyenv cannot find the pyenv executable."
+      echoerr "Please specify the pyenv executable to g:pyenv#pyenv_exec"
+    endif
   endif
   if !exists('g:pyenv#python_exec')
     let g:pyenv#python_exec = g:pyenv#pyenv_root . "/shims/python"
@@ -234,11 +259,11 @@ call s:init()
 " ------------------------------------------------------------------------
 " python initialization
 " ------------------------------------------------------------------------
-if has('python') && has('python3')
+if pyenv#py_mode() == "dual"
   call pyenv#auto_force_py_version(0)
-elseif has('python')
+elseif pyenv#py_mode() == "2"
   call pyenv#force_py_version(2, 0)
-elseif has('python3')
+elseif pyenv#py_mode() == "3"
   call pyenv#force_py_version(3, 0)
 else
   if !exists("g:pyenv#squelch_py_warning")
