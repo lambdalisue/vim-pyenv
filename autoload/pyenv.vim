@@ -222,7 +222,19 @@ function! s:init()
     let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
   endif
   if !exists('g:pyenv#pyenv_exec')
-    let g:pyenv#pyenv_exec = g:pyenv#pyenv_root . "/bin/pyenv"
+    if filereadable(g:pyenv#pyenv_root."/bin/pyenv")
+      " if the pyenv is installed with git command
+      let g:pyenv#pyenv_exec = g:pyenv#pyenv_root . "/bin/pyenv"
+    elseif filereadable("/usr/local/bin/pyenv")
+      " if the pyenv is installed with homebrew
+      let g:pyenv#pyenv_exec = "/usr/local/bin/pyenv"
+    elseif executable("pyenv")
+      " other
+      let g:pyenv#pyenv_exec = "pyenv"
+    else
+      echoerr "vim-pyenv cannot find the pyenv executable."
+      echoerr "Please specify the pyenv executable to g:pyenv#pyenv_exec"
+    endif
   endif
   if !exists('g:pyenv#python_exec')
     let g:pyenv#python_exec = g:pyenv#pyenv_root . "/shims/python"
