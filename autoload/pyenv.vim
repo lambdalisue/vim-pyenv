@@ -134,6 +134,10 @@ function! pyenv#force_py_version(py_version, verbose)
     endif
     let g:pyenv#internal_py_version = a:py_version
   endif
+  " jedi?
+  if get(g:, 'pyenv#jedi#auto_force_py_version', 1) == 1 
+    call pyenv#jedi#force_py_version(a:py_version, a:verbose)
+  endif
 endfunction
 
 function! pyenv#auto_force_py_version(verbose)
@@ -146,11 +150,6 @@ function! pyenv#auto_force_py_version(verbose)
   let external_py_version = split(external_py_version, '\.')[0]
 
   call pyenv#force_py_version(external_py_version, a:verbose)
-
-  " jedi?
-  if get(g:, 'pyenv#jedi#auto_force_py_version', 1) == 1 
-    call pyenv#jedi#force_py_version(external_py_version, a:verbose)
-  endif
 endfunction
 
 " activate the specified name of the pyenv
