@@ -154,6 +154,10 @@ endfunction
 
 " activate the specified name of the pyenv
 function! pyenv#activate(name, verbose)
+  if g:pyenv#enable == 0
+    finish
+  endif
+
   if exists("g:pyenv#activated_name")
     " deactivate pyenv first
     call pyenv#deactivate(0)
@@ -183,6 +187,10 @@ endfunction
 
 " deactivate the pyenv
 function! pyenv#deactivate(verbose)
+  if g:pyenv#enable == 0
+    finish
+  endif
+
   if exists("g:pyenv#activated_name")
     " deactivate pyenv
     let $PYENV_VERSION = ""
@@ -221,14 +229,14 @@ function! s:init()
   " automatically detect the pyenv root
   if g:pyenv#pyenv_root == 'auto'
     let default_pyenv_root = "~/.pyenv"
-    if $PYENV_ROOT
+    if $PYENV_ROOT != ""
       let g:pyenv#pyenv_root = $PYENV_ROOT
     elseif isdirectory(expand(default_pyenv_root))
       let g:pyenv#pyenv_root = default_pyenv_root
     else
       echoerr "vim-pyenv cannot find the pyenv root directory."
       echoerr "Please specify the executable pyenv path by g:pyenv#pyenv_root"
-      let pyenv#enable = 0
+      let g:pyenv#enable = 0
       finish
     endif
     let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
