@@ -240,10 +240,6 @@ function! s:init()
       finish
     endif
     let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
-    if !executable(g:pyenv#pyenv_root)
-      let g:pyenv#enable = 0
-      finish
-    endif
   endif
   if !exists('g:pyenv#pyenv_exec')
     if filereadable(g:pyenv#pyenv_root."/bin/pyenv")
@@ -255,9 +251,9 @@ function! s:init()
     elseif executable("pyenv")
       " other
       let g:pyenv#pyenv_exec = "pyenv"
-    else
-      echoerr "vim-pyenv cannot find the pyenv executable."
-      echoerr "Please specify the pyenv executable to g:pyenv#pyenv_exec"
+    endif
+    if !executable(g:pyenv#pyenv_exec)
+      let g:pyenv#enable = 0
     endif
   endif
   if !exists('g:pyenv#python_exec')
