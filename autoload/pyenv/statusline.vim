@@ -8,6 +8,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! pyenv#statusline#component()
+  if g:pyenv#enable == 0
+    return ""
+  endif
   let py_version = pyenv#py_version()
   let pyenv_name = pyenv#activated_pyenv_name()
   if len(pyenv_name) > 0

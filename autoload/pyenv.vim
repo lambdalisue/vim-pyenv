@@ -240,6 +240,10 @@ function! s:init()
       finish
     endif
     let g:pyenv#pyenv_root = expand(g:pyenv#pyenv_root)
+    if !executable(g:pyenv#pyenv_root)
+      let g:pyenv#enable = 0
+      finish
+    endif
   endif
   if !exists('g:pyenv#pyenv_exec')
     if filereadable(g:pyenv#pyenv_root."/bin/pyenv")
