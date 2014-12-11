@@ -1,4 +1,4 @@
-*vim-pyenv.txt* Activate a pyenv python within Vim
+*vim-pyenv.txt* Activate a pyenv Python within Vim
 
 Version: 1.4
 Author:  Alisue <lambdalisue@hashnote.net>          *vim-pyenv-author*
@@ -40,57 +40,55 @@ Use with jedi-vim               |vim-pyenv-use-with-jedi-vim|
 ===============================================================================
 INTRODUCTION                                        *vim-pyenv-introduction*
 
-*vim-pyenv* allow you to activate and deactivate the pyenv python correctly
+*vim-pyenv* allows you to activate and deactivate the pyenv Python correctly
 in a live Vim session.
-pyenv (https://github.com/yyuu/pyenv) is a simple python version management
-system and users can change the python versions with a quite simple way.
-However, if you use pyenv to switch the python version or virtualenv, the
+pyenv (https://github.com/yyuu/pyenv) is a simple Python version management
+system and users can change the Python versions in a simple way.
+However, if you use pyenv to switch the Python version or virtualenv, the
 omni-completion would not work correctly.
-It is because that the Vim refers the system python and does not know anything
-about the pyenv python, especially the packages you installed on the pyenv
-python.
-vim-pyenv activate the pyenv python and add external python's library searching
-path (PYTHONPATH) to the Vim internal python's PYTHONPATH.
+This is because Vim refers to the system Python and does not know anything
+about the pyenv Python, especially the packages you installed on the pyenv
+Python.
+vim-pyenv activates the pyenv Python and adds the external Python library
+searching path (PYTHONPATH) to the Vim's internal Python's PYTHONPATH.
 Thus, with vim-pyenv, your jedi-vim(https://github.com/davidhalter/jedi-vim)
-or any kind of python omni-completion system returns a correct completion list.
+or any kind of Python omni-completion system returns a correct completion list.
 
-Additionally, vim-pyenv support the python 2 and python 3 dual system.
+Additionally, vim-pyenv supports the dual Python 2 and 3 system.
 If your Vim is compiled with +python and +python3, vim-pyenv automatically
-synchronize the python version to the external python version.
-If you are using jedi-vim, vim-pyenv automatically change the python version
-of jedi-vim as well thus omni-completion works in both python 2 and python 3.
+synchronizes the Python version to the external Python version.
+If you are using jedi-vim, vim-pyenv automatically changes the Python version
+of jedi-vim as well thus omni-completion works in both Python 2 and Python 3.
 
 
 ===============================================================================
 USAGE                                               *vim-pyenv-usage*
 
-vim-pyenv was developed to enable jedi-vim omni-completion on
-pyenv-virtualenv(https://github.com/yyuu/pyenv-virtualenv)
-thus you need to enable jedi-vim and pyenv first of all.
+vim-pyenv was developed to enable jedi-vim's omni-completion with
+pyenv-virtualenv(https://github.com/yyuu/pyenv-virtualenv), but helps
+with every Python related plugin in conjuction with pyenv.
 
-Assume you have three pyenv-virtualenv environments (simply call virtualenvs)
-and you are now in one of the virtualenvs, called A.
-If you open the Vim from a terminal, vim-pyenv automatically detect the
-current virtualenv and activate on the Vim session.
+Assuming that you have three pyenv-virtualenv environments (simply called
+virtualenvs) and you are now in one of them, called A.
+If you open Vim from a terminal, vim-pyenv automatically detects the
+current virtualenv and activates it in the Vim session.
 
-If you want to change the virtualenv from A to B then:
+If you want to change the virtualenv from A to B then do:
 >
     :PyenvActivate B
 <
-
-And if you want to deactivate the virtualenv then:
+To deactivate the virtualenv:
 >
     :PyenvDeactivate
 <
-
-To see the all available virtualenv then:
+To see all available virtualenvs:
 >
     :PyenvList
 <
 
-If your Vim is compiled with +python and +python3, the internal python version
-is automatically synchronized to the external python version.
-See |vim-pyenv-use-with-jedi-vim| for more detail.
+If your Vim is compiled with +python and +python3, the internal Python version
+is automatically synchronized to the external Python version.
+See |vim-pyenv-use-with-jedi-vim| for more details.
 
 
 ===============================================================================
@@ -111,105 +109,105 @@ COMMANDS                                            *vim-pyenv-commands*
 
 
 :PyenvActivate [{name}]                             *:PyenvActivate*
-    Activate a pyenv python. The name of the pyenv python can be completed
+    Activate a pyenv Python. The name of the pyenv Python can be completed
     with <tab> at the command line.
 
-    If the name is not specified, the name will be guessed based on the pyenv
+    If the name is not specified, the name will be guessed based on pyenv's
     current settings.
 
 :PyenvDeactivate                                    *:PyenvDeactivate*
-    Deactivate the current pyenv python.
+    Deactivate the current pyenv Python.
 
 :PyenvList                                          *:PyenvList*
-    List all available pyenv python names.
-    See |pyenv#display_pyenv_names()| as well.
+    List all available pyenv Python names.
+    See also |pyenv#display_pyenv_names()|.
 
 :PyenvName                                          *:PyenvName*
-    Display the current pyenv python name. The pyenv python is not require to
-    be activated in the Vim session.
-    See |pyenv#display_pyenv_name()| as well.
+    Display the current pyenv Python name. The pyenv Python is not required
+    to be activated in the Vim session.
+    See also |pyenv#display_pyenv_name()|.
 
 :PyenvVersion                                       *:PyenvVersion*
-    Display the version number of the internal python.
-    See |pyenv#display_py_version()| as well.
+    Display the version number of the internal Python.
+    See also |pyenv#display_py_version()|.
 
 :PyenvExternalVersion                               *:PyenvExternalVersion*
-    Display the version number of the external python.
-    See |pyenv#display_external_py_version()| as well.
+    Display the version number of the external Python.
+    See also |pyenv#display_external_py_version()|.
 
 :PyenvPython                                        *:PyenvPython*
-    Call an internal python which vim-pyenv use.
+    Call an internal Python, which vim-pyenv uses.
 
 
 -------------------------------------------------------------------------------
 FUNCTIONS                                           *vim-pyenv-functions*
 
 pyenv#pyenv_name()                      *pyenv#pyenv_name()*
-    Return the current pyenv python name. The pyenv python is not require to
+    Return the current pyenv Python name. The pyenv Python is not require to
     be activated in the Vim session.
     If you need to know the activated pyenv name, see |pyenv#activated_name()|
     instead.
     See |pyenv#display_pyenv_name()| as well.
 
 pyenv#activated_pyenv_name()            *pyenv#activated_pyenv_name()*
-    Return the current activated pyenv python name.
+    Return the current activated pyenv Python name.
 
 pyenv#pyenv_names({prefix})             *pyenv#pyenv_names()*
-    Return the list of available pyenv python names. The result list are
+    Return the list of available pyenv Python names. The result list are
     filtered with {prefix}.
     See |pyenv#display_pyenv_names()| as well.
 
 pyenv#py_version()                      *pyenv#py_version()*
-    Return the version number of the internal python.
+    Return the version number of the internal Python.
     See |pyenv#display_py_version()| as well.
 
 pyenv#external_py_version()             *pyenv#external_py_version()*
-    Return the version number of the external python.
+    Return the version number of the external Python.
     See |pyenv#display_external_py_version()| as well.
 
 pyenv#display_pyenv_name()              *pyenv#display_pyenv_name()*
-    Display the current pyenv python name. The pyenv python is not require to
+    Display the current pyenv Python name. The pyenv Python is not require to
     be activated in the Vim session.
     See |:PyenvName| as well.
 
 pyenv#display_pyenv_names()             *pyenv#display_pyenv_names()*
-    List all available pyenv python names.
+    List all available pyenv Python names.
     See |:PyenvList| as well.
 
 pyenv#display_py_version()              *pyenv#display_py_version()*
-    Display the version number of the internal python.
+    Display the version number of the internal Python.
     See |:PyenvVersion| as well.
 
 pyenv#display_external_py_version()     *pyenv#display_external_py_version()*
-    Display the version number of the external python.
+    Display the version number of the external Python.
     See |:PyenvExternalVersion| as well.
 
 pyenv#activate({name}, {verbose})       *pyenv#activate()*
-    Activate the {name} pyenv python.
-    If empty string is specified in {name}, the current pyenv python is used.
+    Activate the {name} pyenv Python.
+    If empty string is specified in {name}, the current pyenv Python is used.
 
 pyenv#deactivate({verbose})             *pyenv#deactivate()*
-    Deactivate the current pyenv python.
+    Deactivate the current pyenv Python.
 
 pyenv#statusline#component()            *pyenv#statusline#component()*
-    Return the current pyenv python name and the version of the internal
-    python. It is used for indicate the current situation in the statusline or
+    Return the current pyenv Python name and the version of the internal
+    Python. It is used to indicate the current situation in the statusline or
     the lightline(https://github.com/itchyny/lightline.vim).
 
-    The return value is formatted with the following rule:
+    The return value is formatted using the following rule:
 
     1.  If the name and the version is different,
-        *g:pyenv#statusline#component#long_pattern* is used to format and the
-        return value looks like "⌘ system(3.4.0)" in default.
+        *g:pyenv#statusline#component#long_pattern* is used for formatting and
+        the return value looks like "⌘ system(3.4.0)" by default.
     2.  If the name and the version is equal,
-        *g:pyenv#statusline#component#short_pattern* is used to format and the
-        return value looks like "⌘ 3.4.0" in default.
+        *g:pyenv#statusline#component#short_pattern* is used to formatting and
+        the return value looks like "⌘ 3.4.0" by default.
     3.  If the name is not provided,
-        *g:pyenv#statusline#component#without_pattern* is used to format and
-        the return value is empty in default.
+        *g:pyenv#statusline#component#without_pattern* is used for formatting
+        and the return value is empty by default.
 
-    The special characters '%e' and '%v' in the pattern are substituted to the
-    pyenv python name and the version respectively.
+    The special characters '%e' and '%v' in the pattern are substituted with
+    the pyenv Python name and the version respectively.
 
     
 -------------------------------------------------------------------------------
@@ -221,24 +219,24 @@ g:pyenv#enable                          *g:pyenv#enable*
     Default to 1.
 
 g:pyenv#auto_activate                   *g:pyenv#auto_activate*
-    If it is 1, vim-pyenv automatically activate the current pyenv python when
-    the vim-pyenv is loaded.
+    If it is 1, vim-pyenv automatically activates the current pyenv Python
+    when vim-pyenv is loaded.
 
     Default to 1.
 
 g:pyenv#force_py_version                *g:pyenv#force_py_version*
-    Specify the python version which vim-pyenv use internally.
-    The python version numbers, 2 or 3, are accepted. 
-    The Vim need to be compiled with +python (for 2) or +python3 (for 3).
-    This value would be ignored when the |g:pyenv#auto_force_py_version| is
+    Specify the Python version, which vim-pyenv uses internally.
+    The Python major version numbers, 2 or 3, are accepted. 
+    Vim needs to be compiled with +python (for 2) or +python3 (for 3).
+    This value will be ignored when |g:pyenv#auto_force_py_version| is
     enabled.
 
     Default to 2.
 
 g:pyenv#auto_force_py_version           *g:pyenv#auto_force_py_version*
-    If it is 1, the internal python version used would be automatically
-    synchronized with the external python version.
-    It requires Vim to compiled with +python and +python3.
+    If it is 1, the internal Python version used would be automatically
+    synchronized with the external Python version.
+    It requires Vim to be compiled with both +python and +python3.
 
     This feature is quite useful when it is used with jedi-vim.
     See |g:pyenv#auto_force_py_version_jedi| as well.
@@ -248,7 +246,7 @@ g:pyenv#auto_force_py_version           *g:pyenv#auto_force_py_version*
 
 g:pyenv#auto_force_py_version_jedi      *g:pyenv#auto_force_py_version_jedi*
     If it is 1 and jedi-vim is loaded, jedi#force_py_version is called with
-    the vim-pyenv internal python version when the version has changed.
+    the vim-pyenv internal Python version when the version has changed.
 
     To enable bi-directional omni-completion, you should turn on this feature.
     See |g:pyenv#auto_force_py_version| as well.
@@ -268,7 +266,7 @@ g:pyenv#pyenv_exec                      *g:pyenv#pyenv_exec*
     Default to 'auto'.
 
 g:pyenv#python_exec                     *g:pyenv#python_exec*
-    The path of python executable.
+    The path of Python executable.
 
     Default to 'auto'.
 
@@ -279,8 +277,8 @@ g:pyenv#squelch_py_warning              *g:pyenv#squelch_py_warning*
     Not defined.
 
 g:pyenv#activated_name                  *g:pyenv#activated_name*
-    The current vim-pyenv activated pyenv python name.
-    This variable is not defined when no pyenv python is activated.
+    The current vim-pyenv activated pyenv Python name.
+    This variable is not defined when no pyenv Python is activated.
 
     Not defined.
 
@@ -289,10 +287,10 @@ g:pyenv#activated_name                  *g:pyenv#activated_name*
 USE WITH JEDI VIM                               *vim-pyenv-use-with-jedi-vim*
 
 If your Vim is compiled with +python and +python3, vim-pyenv automatically
-synchronize the internal python version to the external python version.
-It allow you to use correct python version via |:PyenvPython| command.
+synchronize the internal Python version to the external Python version.
+It allow you to use correct Python version via |:PyenvPython| command.
 
-Additionally, user can change the python version which jedi-vim internally
+Additionally, user can change the Python version which jedi-vim internally
 use with |jedi#force_py_version()| command and vim-pyenv automatically call
 it in pyenv activation and deactivation.
 It allow you to use corrcet omni-completion via jedi-vim.
