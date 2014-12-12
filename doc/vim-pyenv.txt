@@ -42,6 +42,7 @@ INTRODUCTION                                        *vim-pyenv-introduction*
 
 *vim-pyenv* allows you to activate and deactivate the pyenv Python correctly
 in a live Vim session.
+
 pyenv (https://github.com/yyuu/pyenv) is a simple Python version management
 system and users can change the Python versions in a simple way.
 However, if you use pyenv to switch the Python version or virtualenv, the
@@ -49,12 +50,13 @@ omni-completion would not work correctly.
 This is because Vim refers to the system Python and does not know anything
 about the pyenv Python, especially the packages you installed on the pyenv
 Python.
+
 vim-pyenv activates the pyenv Python and adds the external Python library
-searching path (PYTHONPATH) to the Vim's internal Python's PYTHONPATH.
+search path (PYTHONPATH) to Vim's internal Python PYTHONPATH.
 Thus, with vim-pyenv, your jedi-vim(https://github.com/davidhalter/jedi-vim)
 or any kind of Python omni-completion system returns a correct completion list.
 
-Additionally, vim-pyenv supports the dual Python 2 and 3 system.
+Additionally, vim-pyenv supports Vim's dual Python 2 and 3 system.
 If your Vim is compiled with +python and +python3, vim-pyenv automatically
 synchronizes the Python version to the external Python version.
 If you are using jedi-vim, vim-pyenv automatically changes the Python version
