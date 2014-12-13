@@ -200,7 +200,7 @@ pyenv#statusline#component()            *pyenv#statusline#component()*
 
     1.  If the name and the version is different,
         *g:pyenv#statusline#component#long_pattern* is used for formatting and
-        the return value looks like "⌘ system(3.4.0)" by default.
+        the return value looks like "⌘ 3.4.0(system)" by default.
     2.  If the name and the version is equal,
         *g:pyenv#statusline#component#short_pattern* is used to formatting and
         the return value looks like "⌘ 3.4.0" by default.
@@ -209,7 +209,7 @@ pyenv#statusline#component()            *pyenv#statusline#component()*
         and the return value is empty by default.
 
     The special characters '%e' and '%v' in the pattern are substituted with
-    the pyenv Python name and the version respectively.
+    the pyenv Python name and the internal Python version respectively.
 
     
 -------------------------------------------------------------------------------
