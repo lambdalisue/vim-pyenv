@@ -1,6 +1,6 @@
 *vim-pyenv.txt* Activate a pyenv Python within Vim
 
-Version: 1.4
+Version: 1.5
 Author:  Alisue <lambdalisue@hashnote.net>          *vim-pyenv-author*
 License: MIT license  {{{
     Copyright (c) 2014 Alisue, hashnote.net
