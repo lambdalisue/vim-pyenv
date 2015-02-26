@@ -226,15 +226,6 @@ g:pyenv#auto_activate                   *g:pyenv#auto_activate*
 
     Default to 1.
 
-g:pyenv#force_py_version                *g:pyenv#force_py_version*
-    Specify the Python version, which vim-pyenv uses internally.
-    The Python major version numbers, 2 or 3, are accepted. 
-    Vim needs to be compiled with +python (for 2) or +python3 (for 3).
-    This value will be ignored when |g:pyenv#auto_force_py_version| is
-    enabled.
-
-    Default to 2.
-
 g:pyenv#auto_force_py_version           *g:pyenv#auto_force_py_version*
     If it is 1, the internal Python version used would be automatically
     synchronized with the external Python version.
