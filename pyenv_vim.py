@@ -1,8 +1,4 @@
 # coding=utf-8
-"""
-vim-pyenv assistant script
-"""
-__author__ = 'Alisue <lambdalisue@hashnote.net>'
 import vim
 import sys
 import subprocess

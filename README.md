@@ -22,8 +22,6 @@ session](./statics/_screenshot01.png)
 Additionally, vim-pyenv supports Vim's dual Python 2 and 3 system.
 If your Vim is compiled with +python and +python3, vim-pyenv automatically
 synchronizes the Python version to the external Python version.
-If you are using jedi-vim, vim-pyenv automatically changes the Python version
-of jedi-vim as well thus omni-completion works in both Python 2 and Python 3.
 
 ![jedi-vim omni completion works correctly](./statics/_screenshot02.png)
 
