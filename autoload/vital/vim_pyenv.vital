@@ -2,7 +2,6 @@ vim_pyenv
 386a15e
 
 System.Filepath
-System.Cache
+System.Cache.Memory
 Process
 Prelude
-ArgumentParser

@@ -2,8 +2,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
-let s:C = pyenv#utils#import('System.Cache')
-let s:cache = s:C.new('memory')
+let s:C = pyenv#utils#import('System.Cache.Memory')
+let s:cache = s:C.new()
 
 
 function! s:get_info() abort " {{{
