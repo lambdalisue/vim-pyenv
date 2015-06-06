@@ -71,17 +71,8 @@ function! s:activate(name) abort " {{{
   endif
   let previous_name = s:activated_name
   let $PYENV_VERSION = a:name
-  let result = pyenv#utils#system(join([
-        \ g:pyenv#pyenv_exec,
-        \ 'local',
-        \ a:name,
-        \]))
-  if result.status == 0
-    let s:activated_name = a:name
-    return 1
-  endif
-  echoerr result.stdout
-  return 0
+  let s:activated_name = a:name
+  return 1
 endfunction " }}}
 function! s:deactivate() abort " {{{
   if !s:is_enabled()
@@ -89,16 +80,8 @@ function! s:deactivate() abort " {{{
   endif
   let is_activated = s:is_activated()
   let $PYENV_VERSION = ''
-  let result = pyenv#utils#system(join([
-        \ g:pyenv#pyenv_exec,
-        \ 'local',
-        \ '--unset',
-        \]))
-  if result.status == 0
-    let s:activated_name = ''
-    return 1
-  endif
-  return 0
+  let s:activated_name = ''
+  return 1
 endfunction " }}}
 
 
