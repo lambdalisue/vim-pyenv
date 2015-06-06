@@ -55,3 +55,26 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
 You can use [vundle](https://github.com/gmarik/vundle) or
 [pathogen](http://www.vim.org/scripts/script.php?script_id=2332), but make sure
 that vim-pyenv is loaded after jedi-vim.
+
+
+Using vim-pyenv with jedi-vim
+==============================================================================
+
+`vim-pyenv-activate-post` and `vim-pyenv-deactivate-post` autocmd can be used
+to change the major version of jedi like
+
+```vim
+if jedi#init_python()
+  function! s:jedi_auto_force_py_version() abort
+    let major_version = pyenv#python#get_internal_major_version()
+    call jedi#forec_py_version(major_version)
+  endfunction
+  augroup vim-pyenv-custom-augroup
+    autocmd! *
+    autocmd vim-pyenv-activate-post   * call s:jedi_auto_force_py_version()
+    autocmd vim-pyenv-deactivate-post * call s:jedi_auto_force_py_version()
+  augroup END
+endif
+```
+
+The code above automatically call `jedi#force_py_version` every after user change a python version of pyenv via `:PyenvActivate` or `:PyenvDeactivate` command.
