@@ -71,8 +71,8 @@ if jedi#init_python()
   endfunction
   augroup vim-pyenv-custom-augroup
     autocmd! *
-    autocmd vim-pyenv-activate-post   * call s:jedi_auto_force_py_version()
-    autocmd vim-pyenv-deactivate-post * call s:jedi_auto_force_py_version()
+    autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
   augroup END
 endif
 ```
