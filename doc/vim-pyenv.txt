@@ -220,7 +220,8 @@ Then you can switch a major version of python of jedi with the following code
 	endfunction
 	augroup vim-pyenv-custom-augroup
 	  autocmd! *
-	  autocmd vim-pyenv-activate-post * call s:jedi_auto_force_py_version()
+	  autocmd User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+	  autocmd User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
 	augroup END
 <
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
