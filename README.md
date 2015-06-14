@@ -40,7 +40,6 @@ The following is an example of Neobundle entry which specifies jedi-vim as a
 dependency.
 
 ```vim
-" do not load jedi-vim until *.py is opened.
 NeoBundle 'davidhalter/jedi-vim'
 
 " Do not load vim-pyenv until *.py is opened and
