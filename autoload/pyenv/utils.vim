@@ -21,6 +21,7 @@ function! pyenv#utils#system(...) abort " {{{
   return {
         \ 'stdout': stdout,
         \ 'status': status,
+        \ 'args': a:000,
         \}
 endfunction " }}}
 

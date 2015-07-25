@@ -5,6 +5,9 @@ set cpo&vim
 command! -bar -nargs=? -complete=customlist,s:PyenvActivateComplete
       \ PyenvActivate :call pyenv#activate(<q-args>)
 command! -bar PyenvDeactivate :call pyenv#deactivate()
+command! -bar PyenvCreateCtags :call pyenv#pyenv#create_ctags()
+command! -bar PyenvAssignCtags :call pyenv#pyenv#assign_ctags()
+command! -bar PyenvWithdrawCtags :call pyenv#pyenv#withdraw_ctags()
 
 
 function! s:PyenvActivateComplete(arglead, cmdline, cursorpos) abort " {{{

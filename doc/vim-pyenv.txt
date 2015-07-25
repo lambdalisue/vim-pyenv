@@ -110,6 +110,18 @@ COMMANDS					*vim-pyenv-commands*
 :PyenvDeactivate					*:PyenvDeactivate*
     Deactivate the current pyenv Python.
 
+:PyenvCreateCtags					*:PyenvCreateCtags*
+    Create 'ctags' of current activated pyenv in $(pyenv prefix)/ctags.
+    It requires |g:pyenv#ctags_exec| to be correctly specified.
+
+:PyenvAssignCtags					*:PyenvAssignCtags*
+    Assign 'ctags' of current activated pyenv at $(pyenv prefix)/ctags to
+    |tags-option| if the file is not listed in |&l:tags|.
+
+:PyenvWithdrawCtags					*:PyenvWithdrawCtags*
+    Withdraw 'ctags' of current activated pyenv at $(pyenv prefix)/ctags from
+    |tags-option| if the file is listed in |&l:tags|.
+
 
 -------------------------------------------------------------------------------
 FUNCTIONS					*vim-pyenv-functions*
@@ -178,6 +190,22 @@ g:pyenv#pyenv_exec					*g:pyenv#pyenv_exec*
 g:pyenv#python_exec					*g:pyenv#python_exec*
 
 	The path of Python executable.
+
+g:pyenv#ctags_exec					*g:pyenv#ctags_exec*
+	
+	The path of ctags executable.
+
+g:pyenv#auto_create_ctags			 *g:pyenv#auto_create_ctags*
+
+	If it is 1, vim-pyenv automatically call |:PyenvCreateCtags| everytime
+	when user activate. It is very slow.
+	Default to 0.
+
+g:pyenv#auto_assign_ctags			 *g:pyenv#auto_assign_ctags*
+
+	If it is 1, vim-pyenv automatically assign/withdraw tags everytime
+	when user activate.
+	Default to 1.
 
 
 -------------------------------------------------------------------------------
