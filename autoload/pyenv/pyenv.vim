@@ -102,7 +102,7 @@ function! s:deactivate() abort " {{{
   let is_activated = s:is_activated()
   let $PYENV_VERSION = ''
   let s:activated_name = ''
-  if g:pyenv#auto_withdraw_ctags
+  if g:pyenv#auto_assign_ctags
     call s:assign_ctags()
   endif
   return 1
