@@ -21,10 +21,15 @@ function! s:activate(...) abort " {{{
           \ 'pyenv_vim.activate(vim.vars["pyenv#python_exec"])')
     call pyenv#utils#doautocmd('activate-post')
     if !opts.quiet
-      redraw! | call pyenv#utils#info(printf(
+      redraw | call pyenv#utils#info(printf(
             \'vim-pyenv: "%s" is activated.', env,
             \))
     endif
+  else
+    redraw | call pyenv#utils#error(printf(
+          \ 'vim-pyenv: Failed to activate "%s". Python version of the env is not supported in this Vim.',
+          \ env,
+          \))
   endif
 endfunction " }}}
 function! s:deactivate(...) abort " {{{

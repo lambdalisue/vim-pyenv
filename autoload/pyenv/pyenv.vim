@@ -60,7 +60,7 @@ function! s:get_selected_envs() abort " {{{
   return []
 endfunction " }}}
 function! s:get_activated_env() abort " {{{
-  return s:activated_name
+  return empty(s:activated_name) ? 'builtin' : s:activated_name
 endfunction " }}}
 function! s:get_prefixes() abort " {{{
   if !s:is_enabled()
@@ -84,8 +84,18 @@ function! s:activate(name) abort " {{{
   if !s:is_enabled()
     return 0
   endif
-  let previous_name = s:activated_name
+  let previous_PYENV_VERSION = $PYENV_VERSION
   let $PYENV_VERSION = a:name
+  let external_python_major_version = pyenv#python#get_external_major_version()
+  if external_python_major_version == 2 && !has('python')
+    " cannot activate this python
+    let $PYENV_VERSION = previous_PYENV_VERSION
+    return 0
+  elseif external_python_major_version == 3 && !has('python3')
+    " cannot activate this python
+    let $PYENV_VERSION = previous_PYENV_VERSION
+    return 0
+  endif
   let s:activated_name = a:name
   if g:pyenv#auto_create_ctags
     call s:create_ctags()
