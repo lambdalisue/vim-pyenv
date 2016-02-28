@@ -30,7 +30,7 @@ function! s:get_external_major_version() abort " {{{
   if empty(external_version)
     return 0
   endif
-  return split(external_version, '\.')[0]
+  return get(split(external_version, '\.'), 0, '0')
 endfunction " }}}
 function! s:get_internal_version() abort " {{{
   return s:exec_code('pyenv_vim.py_version()')
