@@ -16,7 +16,7 @@ function! pyenv#utils#import(name) abort " {{{
 endfunction " }}}
 function! pyenv#utils#system(...) abort " {{{
   let P = pyenv#utils#import('Process')
-  let stdout = call(P.system, a:000, P)
+  silent let stdout = call(P.system, a:000, P)
   let status = P.get_last_status()
   return {
         \ 'stdout': stdout,

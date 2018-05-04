@@ -9,7 +9,7 @@ let s:selected_major_version = 0
 
 " Private
 function! s:is_enabled() abort " {{{
-  return has('python') || has('python3')
+  return has('pythonx')
 endfunction " }}}
 
 function! s:get_external_version() abort " {{{
@@ -48,10 +48,10 @@ function! s:get_internal_major_version() abort " {{{
   return s:selected_major_version
 endfunction " }}}
 function! s:set_internal_major_version(major) abort " {{{
-  if has('python') && a:major == 2
+  if a:major == 2 && has('python')
     let s:selected_major_version = 2
     return 1
-  elseif has('python3') && a:major == 3
+  elseif a:major == 3 && has('python3')
     let s:selected_major_version = 3
     return 1
   endif
@@ -64,18 +64,18 @@ endfunction " }}}
 
 function! s:exec_file(file, ...) abort " {{{
   let major = get(a:000, 0, s:get_internal_major_version())
-  if has('python') && major == 2
+  if major == 2 && has('python')
     execute printf('pyfile %s', fnameescape(a:file))
-  elseif has('python3') && major == 3
+  elseif major == 3 && has('python3')
     execute printf('py3file %s', fnameescape(a:file))
   endif
 endfunction " }}}
 function! s:exec_code(code, ...) abort " {{{
   let major = get(a:000, 0, s:get_internal_major_version())
   let return_value = 0
-  if has('python') && major == 2
+  if major == 2 && has('python')
     execute printf('python %s', a:code)
-  elseif has('python3') && major == 3
+  elseif major == 3 && has('python3')
     execute printf('python3 %s', a:code)
   endif
   return return_value
@@ -126,6 +126,7 @@ function! s:init() abort " {{{
   endif
   " initialize internal python (invalid version will be ignored silently)
   let filename = s:P.join(s:repository_root, 'initialize.py')
+  call s:auto_internal_major_version()
   call s:exec_file(filename, 2)
   call s:exec_file(filename, 3)
 endfunction " }}}
