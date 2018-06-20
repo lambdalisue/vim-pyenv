@@ -9,7 +9,7 @@ let s:selected_major_version = 0
 
 " Private
 function! s:is_enabled() abort " {{{
-  return has('pythonx')
+  return has('pythonx') || has('python2') || has('python3')
 endfunction " }}}
 
 function! s:get_external_version() abort " {{{
